@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="eventsApp">
+<head>
+    <title>Example App</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+</head>
+<body>
+
+<div class="container">
+
+
+    <div temp id="" ng-class="{ 'is-active' : test }">
+        {{ test }}
+    </div>
+
+    <a href="./EditEventDetails.html">Create an Event!</a>
+
+    <div ng-controller="EventController">
+        {{ event.name }}
+        {{ event.date }}
+        {{ event.location.street }}
+        {{ event.location.state }}
+
+        <h2 ng-show="shouldHide">Hello</h2>
+
+        <h2 ng-hide="shouldHide">World</h2>
+        <button class="btn btn-large" ng-click="flip()">Flip!</button>
+
+        <h3>Sessions</h3>
+        Order by:
+        <select ng-model="sortOrder" class="input-small">
+            <option value="name">Name</option>
+            <option value="-voteCount">Votes</option>
+        </select>
+        <ul class="thumbnails">
+
+            <li ng-repeat="session in event.sessions | orderBy:sortOrder | limitTo:2">
+                <my-session session="session"/>
+            </li>
+        </ul>
+
+        <!-- expressions (not full javascript) -->
+        {{ 1 + 4 }}
+        {{ [1,2,3,4][2] }}
+        {{ 'hello' + 'world' }}
+
+        <!-- filter -->
+        <!--{{ expression | filter }}-->
+        <h3>{{ event.name | uppercase }}</h3>
+        {{ 3.141929292929 | number:2 }}<br>
+        {{ 34 | currency }}<br>
+        <!-- date! can use preset or custom -->
+        {{ {a:3, b:'h1'} | json}}
+        orderBy, limitTo,
+
+    </div>
+</div>
+
+<div class="container">
+    <h2>Directives!</h2>
+    <sample></sample>
+</div>
+
+
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/lib/angular/angular.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/controllers/EventController.js"></script>
+<script src="/js/directives/sample.js"></script>
+<script src="/js/directives/session.js"></script>
+
+
+</body>
+</html>
